@@ -1,7 +1,18 @@
 angular.module('Segnalibr', [
-  // dependencies
+  'ui.router',
+
+  'segnalibr.categories',
+  'segnalibr.categories.bookmarks',
 ])
-.controller('MainController', $scope => {
+.config(function($stateProvider) {
+  $stateProvider.state({
+    name: 'segnalibr',
+    url: '/',
+    templateUrl: 'src/categories/categories.template.html',
+    controller: 'MainController',
+  })
+})
+.controller('MainController', function($scope) {
   $scope.categories = [
     { id: 42, slug: 'development', name: 'Development' },
     { id: 16, slug: 'design', name: 'Design' },

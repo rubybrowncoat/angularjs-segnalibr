@@ -1,0 +1,15 @@
+{
+  "name": "segnalibr",
+  "version": "1.0.0",
+  "description": "Un'applicazione bellissima",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sandro Pertini",
+  "license": "ISC",
+  "dependencies": {
+    "@uirouter/angularjs": "^1.0.18",
+    "angular": "^1.7.2"
+  }
+}
