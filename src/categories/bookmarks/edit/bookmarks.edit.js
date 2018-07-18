@@ -9,6 +9,36 @@ angular.module('segnalibr.categories.bookmarks.edit', [
     controller: 'BookmarksEditController as bookmarksEditController',
   })
 })
-.controller('BookmarksEditController', function() {
+.controller('BookmarksEditController', function($state, $stateParams, BookmarksModel) {
+  const returnToBookmarks = () => {
+    const { category } = $stateParams
 
+    if (category) {
+      $state.go('segnalibr.categories.bookmarks', {
+        category,
+      })
+    } else {
+      $state.go('segnalibr.categories')
+    }
+  }
+
+  const resetEditForm = bookmark => {
+    this.currentBookmark = bookmark
+    this.editedBookmark = angular.copy(bookmark)
+
+    // this.editedBookmark = {
+    //   ...bookmark,
+    // }
+  }
+
+  this.cancelEdit = () => returnToBookmarks()
+
+  this.editBookmark = editedBookmark => {
+    BookmarksModel.editBookmark(editedBookmark)
+
+    returnToBookmarks()
+  }
+
+  BookmarksModel.getBookmarkById($stateParams.bookmarkId)
+    .then(bookmark => bookmark ? resetEditForm(bookmark) : returnToBookmarks())
 })

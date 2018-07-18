@@ -1,15 +1,15 @@
-<h4>Editing: {{ currentBookmark.title }}</h4>
-<h5>ULR: {{ currentBookmark.url }}</h5>
+<h4>Editing: {{ bookmarksEditController.currentBookmark.title }}</h4>
+<h5>ULR: {{ bookmarksEditController.currentBookmark.url }}</h5>
 
-<form class="create-form" role="form" ng-submit="editBookmark(editedBookmark)" novalidate>
+<form class="create-form" role="form" ng-submit="bookmarksEditController.editBookmark(bookmarksEditController.editedBookmark)" novalidate>
   <div class="form-group">
     <label for="bookmarkTitle">Titolo</label>
-    <input type="text" class="form-control" id="bookmarkTitle" ng-model="editedBookmark.title" placeholder="Titolo del Segnalibr">
+    <input type="text" class="form-control" id="bookmarkTitle" ng-model="bookmarksEditController.editedBookmark.title" placeholder="Titolo del Segnalibr">
   </div>
   <div class="form-group">
     <label for="bookmarkUrl">URL</label>
-    <input type="text" class="form-control" id="bookmarkUrl" ng-model="editedBookmark.url" placeholder="URL">
+    <input type="text" class="form-control" id="bookmarkUrl" ng-model="bookmarksEditController.editedBookmark.url" placeholder="URL">
   </div>
   <button type="submit" class="btn btn-info">Modifica</button>
-  <button class="btn btn-warning" ng-click="cancelForm()">Annulla…</button>
+  <button type="button" class="btn btn-warning" ng-click="bookmarksEditController.cancelEdit()">Annulla…</button>
 </form>

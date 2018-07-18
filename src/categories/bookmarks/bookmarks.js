@@ -14,7 +14,8 @@ angular.module('segnalibr.categories.bookmarks', [
         templateUrl: 'src/categories/bookmarks/bookmarks.template.html',
         controller: 'BookmarksListController as bookmarksListController',
       }
-    }
+    },
+    params: { category: null },
   })
 })
 .controller('BookmarksListController', function($stateParams, BookmarksModel, CategoriesModel) {
@@ -23,5 +24,6 @@ angular.module('segnalibr.categories.bookmarks', [
   BookmarksModel.getBookmarks()
     .then(bookmarks => this.bookmarks = bookmarks)
 
+  this.currentBookmark = $stateParams.bookmarkId
   this.getCurrentCategorySlug = CategoriesModel.getCurrentCategorySlug
 })
