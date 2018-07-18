@@ -71,8 +71,6 @@ angular.module('Segnalibr', [
   }
 
   $scope.createBookmark = bookmark => {
-    console.log(bookmark)
-
     bookmarks.push({
       ...bookmark,
 
@@ -100,8 +98,6 @@ angular.module('Segnalibr', [
     && $scope.isEditing()
 
   $scope.editBookmark = editedBookmark => {
-    console.log(editedBookmark)
-
     const index = bookmarks.findIndex(bookmark => bookmark.id === editedBookmark.id)
     bookmarks.splice(index, 1, editedBookmark)
 
