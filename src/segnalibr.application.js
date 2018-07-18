@@ -1,5 +1,5 @@
 angular.module('Segnalibr', [
-
+  // dependencies
 ])
 .controller('MainController', $scope => {
   $scope.categories = [
@@ -106,5 +106,14 @@ angular.module('Segnalibr', [
     $scope.bookmarks.splice(index, 1, editedBookmark)
 
     $scope.cancelForm()
+  }
+
+  $scope.deleteBookmark = deletedBookmark => {
+    if (confirm(`Stai per cancellare un Segnalibr. L'operazione non è reversibile.`)) {
+      $scope.cancelForm()
+
+      const index = $scope.bookmarks.findIndex(bookmark => bookmark.id === deletedBookmark.id)
+      $scope.bookmarks.splice(index, 1)
+    }
   }
 })
