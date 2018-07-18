@@ -1,4 +1,5 @@
 angular.module('Segnalibr', [
+  'ngAnimate',
   'ui.router',
 
   'segnalibr.models.bookmarks',

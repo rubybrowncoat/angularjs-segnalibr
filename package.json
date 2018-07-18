@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@uirouter/angularjs": "^1.0.18",
-    "angular": "^1.7.2"
+    "angular": "^1.7.2",
+    "angular-animate": "^1.7.2"
   }
 }
