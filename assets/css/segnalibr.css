@@ -1,9 +1,9 @@
 html,
 body {
-  background-color: #282A36;
-  width: 100%;
-  height: 100%;
-  color: #FD8BE1;
+    background-color: #282A36;
+    width: 100%;
+    height: 100%;
+    color: #FD8BE1;
 }
 
 .nav-spacer {
@@ -20,6 +20,7 @@ body {
 
 .text-perfect {
   font-family: Gibson;
+
   color: #FD8BE1 !important;
 }
 
@@ -27,12 +28,13 @@ body {
   color: #282A36 !important;
 }
 
+
 a {
   color: #FD8BE1;
+
   font-size: 22px;
   text-decoration: none;
 }
-
 a:hover {
   color: #fb17c3;
 }
@@ -40,15 +42,14 @@ a:hover {
 .sidebar a {
   font-family: Gibson;
   color: #343a40;
+
   font-size: 26px;
 }
-
 .sidebar a:hover {
-  color: #687581;
+    color: #687581;
 }
 
-.segnalibr,
-.nav-item {
+.segnalibr, .nav-item {
   margin-top: 1em;
 }
 
@@ -57,20 +58,21 @@ a:hover {
 }
 
 @media (min-width: 382px) {
-  .sidebar {
-    position: fixed;
-    top: 50px;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-    display: block;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background-color: #FD8BE1;
-    border-right: 1px solid #7B807E;
-  }
+    .sidebar {
+        position: fixed;
+        top: 50px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: block;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: #FD8BE1;
+        border-right: 1px solid #7B807E;
+    }
 }
 
 hr {
   border-color: #FD8BE1;
 }
+
