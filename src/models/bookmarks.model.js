@@ -44,4 +44,11 @@ angular.module('segnalibr.models.bookmarks', [
     const index = bookmarks.findIndex(bookmark => bookmark.id === editedBookmark.id)
     bookmarks.splice(index, 1, editedBookmark)
   }
+
+  this.deleteBookmark = deletedBookmark => {
+    if (confirm(`Stai per cancellare un Segnalibr. L'operazione non è reversibile.`)) {
+      const index = bookmarks.findIndex(bookmark => bookmark.id === deletedBookmark.id)
+      bookmarks.splice(index, 1)
+    }
+  }
 }])

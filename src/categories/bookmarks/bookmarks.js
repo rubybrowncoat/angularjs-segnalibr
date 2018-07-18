@@ -18,7 +18,19 @@ angular.module('segnalibr.categories.bookmarks', [
     params: { category: null },
   })
 })
-.controller('BookmarksListController', function($stateParams, BookmarksModel, CategoriesModel) {
+.controller('BookmarksListController', function($state, $stateParams, BookmarksModel, CategoriesModel) {
+  const returnToBookmarks = () => {
+    const { category } = $stateParams
+
+    if (category) {
+      $state.go('segnalibr.categories.bookmarks', {
+        category,
+      })
+    } else {
+      $state.go('segnalibr.categories')
+    }
+  }
+
   CategoriesModel.setCurrentCategoryBySlug($stateParams.category)
 
   BookmarksModel.getBookmarks()
@@ -26,4 +38,7 @@ angular.module('segnalibr.categories.bookmarks', [
 
   this.currentBookmark = $stateParams.bookmarkId
   this.getCurrentCategorySlug = CategoriesModel.getCurrentCategorySlug
+
+  this.cancelForms = () => returnToBookmarks()
+  this.deleteBookmark = BookmarksModel.deleteBookmark
 })
