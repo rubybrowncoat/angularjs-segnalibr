@@ -15,4 +15,12 @@ angular.module('segnalibr.models.bookmarks', [
     ? bookmarks
     : http.get(endpoints.fetch).then(gatherBookmarks)
   )
+
+  this.createBookmark = bookmark => {
+    bookmarks.push({
+      ...bookmark,
+
+      id: bookmarks.length,
+    })
+  }
 }])

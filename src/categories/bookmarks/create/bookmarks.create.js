@@ -9,6 +9,28 @@ angular.module('segnalibr.categories.bookmarks.create', [
     controller: 'BookmarksCreateController as bookmarksCreateController',
   })
 })
-.controller('BookmarksCreateController', function() {
+.controller('BookmarksCreateController', ['$state', '$stateParams', 'BookmarksModel', function($state, $stateParams, BookmarksModel) {
+  const returnToBookmarks = () => {
+    $state.go('segnalibr.categories.bookmarks', {
+      category: $stateParams.category,
+    })
+  }
 
-})
+  const resetCreateForm = () => {
+    this.newBookmarkCreation = {
+      title: '',
+      url: '',
+      category: $stateParams.category,
+    }
+  }
+
+  this.cancelCreate = () => returnToBookmarks()
+
+  this.createBookmark = bookmark => {
+    BookmarksModel.createBookmark(bookmark)
+
+    returnToBookmarks()
+  }
+
+  resetCreateForm()
+}])
