@@ -23,9 +23,36 @@ angular.module('Segnalibr', [
   $scope.currentCategory = null
 
   $scope.setCategory = category => {
+    $scope.cancelForm()
+
     $scope.currentCategory = category
   }
 
   $scope.isCurrentCategory = category =>
     $scope.currentCategory !== null && category.slug === $scope.currentCategory.slug
+
+  // State
+  $scope.state = {
+    create: false,
+    edit: false,
+  }
+
+  $scope.doCreate = () => {
+    $scope.state.create = true
+    $scope.state.edit = false
+  }
+
+  $scope.doEdit = () => {
+    $scope.state.create = false
+    $scope.state.edit = true
+  }
+
+  $scope.cancelForm = () => {
+    $scope.state.create = false
+    $scope.state.edit = false
+  }
+
+  $scope.canCreate = () => $scope.currentCategory !== null && !$scope.state.edit
+  $scope.isCreating = () => $scope.state.create && !$scope.state.edit
+  $scope.isEditing = () => !$scope.state.create && $scope.state.edit
 })
