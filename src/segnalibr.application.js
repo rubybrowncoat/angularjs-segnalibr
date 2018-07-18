@@ -1,6 +1,8 @@
 angular.module('Segnalibr', [
   'ui.router',
 
+  'segnalibr.models.bookmarks',
+
   'segnalibr.categories',
   'segnalibr.categories.bookmarks',
 ])
@@ -13,24 +15,8 @@ angular.module('Segnalibr', [
 
   $urlRouterProvider.otherwise('/')
 })
-.controller('MainController', function($scope, $state) {
-  $scope.categories = [
-    { id: 42, slug: 'development', name: 'Development' },
-    { id: 16, slug: 'design', name: 'Design' },
-    { id: 70, slug: 'videogames', name: 'Video Games' },
-    { id: 41, slug: 'scifi', name: 'Science Fiction' },
-  ]
-
-  $scope.bookmarks = [
-    { id: 1, title: 'AngularJS', url: 'https://angularjs.org', category: 'development' },
-    { id: 2, title: 'Node.js', url: 'https://nodejs.org', category: 'development' },
-    { id: 3, title: 'GitHub', url: 'https://github.com', category: 'development' },
-    { id: 4, title: 'Material Design', url: 'https://material.io/design/', category: 'design' },
-    { id: 5, title: 'Dwarf Fortress', url: 'http://www.bay12games.com/dwarves/', category: 'videogames' },
-    { id: 6, title: 'The Noun Project', url: 'https://thenounproject.com', category: 'design' },
-    { id: 7, title: 'Rocket League', url: 'https://www.rocketleague.com', category: 'videogames' },
-    { id: 8, title: 'Honorverse', url: 'https://en.wikipedia.org/wiki/Honorverse', category: 'scifi' },
-  ]
+.controller('MainController', function($scope, $stateParams, BookmarksModel) {
+  const bookmarks = BookmarksModel.getBookmarks()
 
   $scope.currentCategory = null
 
@@ -40,9 +26,11 @@ angular.module('Segnalibr', [
     $scope.currentCategory = category
   }
 
-  $scope.isCurrentCategory = category =>
-    $scope.currentCategory !== null
-    && category.slug === $scope.currentCategory.slug
+  $scope.isCurrentCategory = category => {
+    const categorySlug = $stateParams.category
+
+    return categorySlug !== null && category.slug === categorySlug
+  }
 
   // State
   $scope.state = {
@@ -85,10 +73,10 @@ angular.module('Segnalibr', [
   $scope.createBookmark = bookmark => {
     console.log(bookmark)
 
-    $scope.bookmarks.push({
+    bookmarks.push({
       ...bookmark,
 
-      id: $scope.bookmarks.length,
+      id: bookmarks.length,
     })
 
     $scope.resetCreateForm()
@@ -114,8 +102,8 @@ angular.module('Segnalibr', [
   $scope.editBookmark = editedBookmark => {
     console.log(editedBookmark)
 
-    const index = $scope.bookmarks.findIndex(bookmark => bookmark.id === editedBookmark.id)
-    $scope.bookmarks.splice(index, 1, editedBookmark)
+    const index = bookmarks.findIndex(bookmark => bookmark.id === editedBookmark.id)
+    bookmarks.splice(index, 1, editedBookmark)
 
     $scope.cancelForm()
   }
@@ -124,8 +112,8 @@ angular.module('Segnalibr', [
     if (confirm(`Stai per cancellare un Segnalibr. L'operazione non è reversibile.`)) {
       $scope.cancelForm()
 
-      const index = $scope.bookmarks.findIndex(bookmark => bookmark.id === deletedBookmark.id)
-      $scope.bookmarks.splice(index, 1)
+      const index = bookmarks.findIndex(bookmark => bookmark.id === deletedBookmark.id)
+      bookmarks.splice(index, 1)
     }
   }
 })
