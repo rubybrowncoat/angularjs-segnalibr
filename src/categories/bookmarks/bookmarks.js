@@ -17,10 +17,9 @@ angular.module('segnalibr.categories.bookmarks', [
     }
   })
 })
-.controller('BookmarksListController', function($scope, $stateParams, BookmarksModel) {
+.controller('BookmarksListController', function($stateParams, BookmarksModel) {
   this.currentCategorySlug = $stateParams.category || null
 
   BookmarksModel.getBookmarks()
-    .then(response => response.data)
     .then(bookmarks => this.bookmarks = bookmarks)
 })

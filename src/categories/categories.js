@@ -19,6 +19,5 @@ angular.module('segnalibr.categories', [
 })
 .controller('CategoriesListController', function(CategoriesModel) {
   CategoriesModel.getCategories()
-    .then(response => response.data)
     .then(categories => this.categories = categories)
 })
