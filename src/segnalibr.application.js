@@ -13,7 +13,7 @@ angular.module('Segnalibr', [
 
   $urlRouterProvider.otherwise('/')
 })
-.controller('MainController', function($scope) {
+.controller('MainController', function($scope, $state) {
   $scope.categories = [
     { id: 42, slug: 'development', name: 'Development' },
     { id: 16, slug: 'design', name: 'Design' },

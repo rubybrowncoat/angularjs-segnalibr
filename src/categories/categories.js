@@ -17,9 +17,6 @@ angular.module('segnalibr.categories', [
     },
   })
 })
-.controller('CategoriesController', function($scope) {
-
-})
-.controller('BookmarksController', function($scope) {
+.controller('CategoriesController', function() {
 
 })
