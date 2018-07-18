@@ -29,7 +29,8 @@ angular.module('Segnalibr', [
   }
 
   $scope.isCurrentCategory = category =>
-    $scope.currentCategory !== null && category.slug === $scope.currentCategory.slug
+    $scope.currentCategory !== null
+    && category.slug === $scope.currentCategory.slug
 
   // State
   $scope.state = {
@@ -44,9 +45,11 @@ angular.module('Segnalibr', [
     $scope.resetCreateForm()
   }
 
-  $scope.doEdit = () => {
+  $scope.doEdit = bookmark => {
     $scope.state.create = false
     $scope.state.edit = true
+
+    $scope.resetEditForm(bookmark)
   }
 
   $scope.cancelForm = () => {
@@ -73,9 +76,35 @@ angular.module('Segnalibr', [
     $scope.bookmarks.push({
       ...bookmark,
 
-      id: $scope.bookmarks.length + 1,
+      id: $scope.bookmarks.length,
     })
 
     $scope.resetCreateForm()
+  }
+
+  $scope.currentBookmark = null
+  $scope.editedBookmark = {}
+
+  $scope.resetEditForm = (bookmark = {}) => {
+    $scope.currentBookmark = bookmark
+
+    $scope.editedBookmark = angular.copy(bookmark)
+    // $scope.editedBookmark = {
+    //   ...bookmark,
+    // }
+  }
+
+  $scope.isEditedBookmark = bookmark =>
+    $scope.editedBookmark !== null
+    && bookmark.id === $scope.editedBookmark.id
+    && $scope.isEditing()
+
+  $scope.editBookmark = editedBookmark => {
+    console.log(editedBookmark)
+
+    const index = $scope.bookmarks.findIndex(bookmark => bookmark.id === editedBookmark.id)
+    $scope.bookmarks.splice(index, 1, editedBookmark)
+
+    $scope.cancelForm()
   }
 })
