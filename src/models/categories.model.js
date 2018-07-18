@@ -3,6 +3,7 @@ angular.module('segnalibr.models.categories', [
 ])
 .service('CategoriesModel', ['$http', '$q', function(http, que) {
   let categories = []
+  let currentCategory = null
 
   const endpoints = {
     fetch: 'data/categories.json',
@@ -31,4 +32,12 @@ angular.module('segnalibr.models.categories', [
 
     return deferred.promise
   }
+
+  this.setCurrentCategoryBySlug = categorySlug => {
+    this.getCategoryBySlug(categorySlug)
+      .then(category => currentCategory = category)
+  }
+
+  this.getCurrentCategory = () => currentCategory
+  this.getCurrentCategorySlug = () => currentCategory ? currentCategory.slug : ''
 }])

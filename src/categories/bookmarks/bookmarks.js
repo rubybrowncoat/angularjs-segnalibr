@@ -17,9 +17,11 @@ angular.module('segnalibr.categories.bookmarks', [
     }
   })
 })
-.controller('BookmarksListController', function($stateParams, BookmarksModel) {
-  this.currentCategorySlug = $stateParams.category || null
+.controller('BookmarksListController', function($stateParams, BookmarksModel, CategoriesModel) {
+  CategoriesModel.setCurrentCategoryBySlug($stateParams.category)
 
   BookmarksModel.getBookmarks()
     .then(bookmarks => this.bookmarks = bookmarks)
+
+  this.getCurrentCategorySlug = CategoriesModel.getCurrentCategorySlug
 })

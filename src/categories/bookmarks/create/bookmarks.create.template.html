@@ -1,0 +1,13 @@
+<form class="create-form" role="form" ng-submit="createBookmark(newBookmarkCreation)">
+  <div class="form-group">
+    <label for="bookmarkTitle">Titolo</label>
+    <input type="text" class="form-control" id="bookmarkTitle" ng-model="newBookmarkCreation.title"
+      placeholder="Titolo del Segnalibr">
+  </div>
+  <div class="form-group">
+    <label for="bookmarkUrl">URL</label>
+    <input type="text" class="form-control" id="bookmarkUrl" ng-model="newBookmarkCreation.url" placeholder="URL">
+  </div>
+  <button type="submit" class="btn btn-info">Crea</button>
+  <button class="btn btn-warning" ng-click="cancelForm()">Annulla…</button>
+</form>
