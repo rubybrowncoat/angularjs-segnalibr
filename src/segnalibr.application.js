@@ -1,7 +1,7 @@
 angular.module('Segnalibr', [
 
 ])
-.controller('MainController', ($scope) => {
+.controller('MainController', $scope => {
   $scope.categories = [
     { id: 42, slug: 'development', name: 'Development' },
     { id: 16, slug: 'design', name: 'Design' },
@@ -20,5 +20,12 @@ angular.module('Segnalibr', [
     { id: 7, title: 'Honorverse', url: 'https://en.wikipedia.org/wiki/Honorverse', category: 'scifi' },
   ]
 
-  $scope.hello = 'world'
+  $scope.currentCategory = null
+
+  $scope.setCategory = category => {
+    $scope.currentCategory = category
+  }
+
+  $scope.isCurrentCategory = category =>
+    $scope.currentCategory !== null && category.slug === $scope.currentCategory.slug
 })

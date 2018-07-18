@@ -45,6 +45,10 @@ a:hover {
 
   font-size: 26px;
 }
+.sidebar .active a {
+  font-style: italic;
+  color: #687581;
+}
 .sidebar a:hover {
     color: #687581;
 }

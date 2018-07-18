@@ -14,7 +14,7 @@
 
 <body ng-controller="MainController">
   <nav class="navbar navbar-dark sticky-top bg-obscuro flex-md-nowrap p-0">
-    <a class="navbar-brand col-md-3 mr-0 text-perfect" href="#">Segnali.br</a>
+    <a class="navbar-brand col-md-3 mr-0 text-perfect" href="#" ng-click="setCategory(null)">Segnali.br</a>
     <div class="w-100 nav-spacer bg-perfect"></div>
   </nav>
   <div class="container-fluid">
@@ -22,14 +22,17 @@
       <div class="col-md-3 pt-3 sidebar">
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
-            <li class="nav-item" ng-repeat="category in categories" ng-init="catIndex = $index">
-              <a href="{{ category.slug }}">{{ catIndex }} - {{ category.name }}</a>
+            <li
+              class="nav-item"
+              ng-repeat="category in categories"
+              ng-class="{active: isCurrentCategory(category)}">
+              <a href="#" ng-click="setCategory(category)">{{ category.name }}</a>
             </li>
           </ul>
         </div>
       </div>
       <main role="main" class="col-md-9 ml-sm-auto pt-3 px-4">
-        <div class="segnalibr" ng-repeat="bookmark in bookmarks">
+        <div class="segnalibr" ng-repeat="bookmark in bookmarks | filter: { category: currentCategory.slug }">
           <button type="button" class="close text-perfect segnalibr-close">&times;</button>
           <button type="button" class="btn btn-outline-secondary">
             e
