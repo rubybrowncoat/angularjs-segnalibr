@@ -10,14 +10,14 @@ angular.module('Segnalibr', [
   ]
 
   $scope.bookmarks = [
-    { id: 0, title: 'AngularJS', url: 'https://angularjs.org', category: 'development' },
-    { id: 1, title: 'Node.js', url: 'https://nodejs.org', category: 'development' },
-    { id: 2, title: 'GitHub', url: 'https://github.com', category: 'development' },
-    { id: 3, title: 'Material Design', url: 'https://material.io/design/', category: 'design' },
-    { id: 4, title: 'Dwarf Fortress', url: 'http://www.bay12games.com/dwarves/', category: 'videogames' },
-    { id: 5, title: 'The Noun Project', url: 'https://thenounproject.com', category: 'design' },
-    { id: 6, title: 'Rocket League', url: 'https://www.rocketleague.com', category: 'videogames' },
-    { id: 7, title: 'Honorverse', url: 'https://en.wikipedia.org/wiki/Honorverse', category: 'scifi' },
+    { id: 1, title: 'AngularJS', url: 'https://angularjs.org', category: 'development' },
+    { id: 2, title: 'Node.js', url: 'https://nodejs.org', category: 'development' },
+    { id: 3, title: 'GitHub', url: 'https://github.com', category: 'development' },
+    { id: 4, title: 'Material Design', url: 'https://material.io/design/', category: 'design' },
+    { id: 5, title: 'Dwarf Fortress', url: 'http://www.bay12games.com/dwarves/', category: 'videogames' },
+    { id: 6, title: 'The Noun Project', url: 'https://thenounproject.com', category: 'design' },
+    { id: 7, title: 'Rocket League', url: 'https://www.rocketleague.com', category: 'videogames' },
+    { id: 8, title: 'Honorverse', url: 'https://en.wikipedia.org/wiki/Honorverse', category: 'scifi' },
   ]
 
   $scope.currentCategory = null
@@ -40,6 +40,8 @@ angular.module('Segnalibr', [
   $scope.doCreate = () => {
     $scope.state.create = true
     $scope.state.edit = false
+
+    $scope.resetCreateForm()
   }
 
   $scope.doEdit = () => {
@@ -55,4 +57,25 @@ angular.module('Segnalibr', [
   $scope.canCreate = () => $scope.currentCategory !== null && !$scope.state.edit
   $scope.isCreating = () => $scope.state.create && !$scope.state.edit
   $scope.isEditing = () => !$scope.state.create && $scope.state.edit
+
+  // Crud
+  $scope.resetCreateForm = () => {
+    $scope.newBookmarkCreation = {
+      title: '',
+      url: '',
+      category: $scope.currentCategory.slug,
+    }
+  }
+
+  $scope.createBookmark = bookmark => {
+    console.log(bookmark)
+
+    $scope.bookmarks.push({
+      ...bookmark,
+
+      id: $scope.bookmarks.length + 1,
+    })
+
+    $scope.resetCreateForm()
+  }
 })
