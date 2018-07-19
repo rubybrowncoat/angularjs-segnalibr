@@ -1,0 +1,17 @@
+<h1>{{ bookmarksListController.getCurrentCategorySlug() }}</h1>
+
+<div class="segnalibr" ng-repeat="bookmark in bookmarksListController.bookmarks | filter: { category: bookmarksListController.getCurrentCategorySlug() }">
+  <button type="button" class="close text-perfect segnalibr-close" ng-click="bookmarksListController.cancelForms(); bookmarksListController.deleteBookmark(bookmark)">&times;</button>
+  <button type="button" class="btn btn-outline-secondary" ui-sref="segnalibr.categories.bookmarks.edit({ bookmarkId: bookmark.id })" ng-disabled="isEditedBookmark(bookmark)">
+    mod
+  </button>
+  <a href="{{ bookmark.url }}" target="_blank">{{ bookmark.title }}</a>
+</div>
+
+<hr/>
+
+<ui-view>
+  <div ng-if="bookmarksListController.getCurrentCategorySlug()">
+    <button class="btn btn-lg btn-primary" ui-sref="segnalibr.categories.bookmarks.create">Crea un Segnalibr!</button>
+  </div>
+</ui-view>

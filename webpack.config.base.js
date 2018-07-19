@@ -3,7 +3,7 @@ const path = require('path')
 module.exports = {
   name: 'base',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, "dist"),
     filename: 'bundle.js',
   },
   module: {
@@ -71,15 +71,13 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: [
-          /node_modules/,
-        ],
+        exclude: /(node_modules|bower_components)/,
         use: [
           {
-            loader: 'ng-annotate-loader',
-          },
-          {
             loader: 'babel-loader',
+            options: {
+              cacheDirectory: true
+            },
           },
         ]
       }
