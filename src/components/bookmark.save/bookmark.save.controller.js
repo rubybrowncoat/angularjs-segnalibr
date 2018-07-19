@@ -1,17 +1,16 @@
 class BookmarkSaveController {
   $onChanges() {
-    console.log('w')
     this.editedBookmark = {
       ...this.bookmark,
     }
   }
 
   isCreating() {
-    return this.editedBookmark.id === undefined
+    return this.editedBookmark.new
   }
 
   isEditing() {
-    return this.editedBookmark.id !== undefined
+    return !this.editedBookmark.new
   }
 }
 

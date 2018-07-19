@@ -1,24 +1,83 @@
 class BookmarksController {
   // @ngInject
-  constructor(BookmarksModel, $ngRedux) {
-    this.BookmarksModel = BookmarksModel
-
+  constructor($timeout, $ngRedux, BookmarksActions) {
+    this.$timeout = $timeout
     this.$store = $ngRedux
+
+    this.BookmarksActions = BookmarksActions
   }
 
   $onInit() {
-    this.BookmarksModel.getBookmarks()
-      .then(bookmarks => this.bookmarks = bookmarks)
-
     this.$store.subscribe(() => {
-      const { category } = this.$store.getState()
+      const {
+        bookmarks,
+        bookmark,
 
+        category
+      } = this.$store.getState()
+
+      this.bookmarks = bookmarks
+
+      this.currentBookmark = bookmark
       this.currentCategory = category
     })
-  }
 
-  getCurrentCategory() {
-    return this.currentCategory
+    this.$store.dispatch(this.BookmarksActions.fetchBookmarks())
+
+    this.$timeout(() => {
+      const bookmarksPayload = [
+        {
+          "id": 1,
+          "title": "AngularJS",
+          "url": "https://angularjs.org",
+          "category": "development"
+        },
+        {
+          "id": 2,
+          "title": "Node.js",
+          "url": "https://nodejs.org",
+          "category": "development"
+        },
+        {
+          "id": 3,
+          "title": "GitHub",
+          "url": "https://github.com",
+          "category": "development"
+        },
+        {
+          "id": 4,
+          "title": "Material Design",
+          "url": "https://material.io/design/",
+          "category": "design"
+        },
+        {
+          "id": 5,
+          "title": "Dwarf Fortress",
+          "url": "http://www.bay12games.com/dwarves/",
+          "category": "videogames"
+        },
+        {
+          "id": 6,
+          "title": "The Noun Project",
+          "url": "https://thenounproject.com",
+          "category": "design"
+        },
+        {
+          "id": 7,
+          "title": "Rocket League",
+          "url": "https://www.rocketleague.com",
+          "category": "videogames"
+        },
+        {
+          "id": 8,
+          "title": "Honorverse",
+          "url": "https://en.wikipedia.org/wiki/Honorverse",
+          "category": "scifi"
+        },
+      ]
+
+      this.$store.dispatch(this.BookmarksActions.fetchBookmarks(bookmarksPayload))
+    }, 3000);
   }
 
   getCurrentCategorySlug() {
@@ -29,24 +88,12 @@ class BookmarksController {
     return this.currentCategory ? this.currentCategory.name : null
   }
 
-  createBookmark() {
-    this.currentBookmark = this.initNewBookmark()
+  selectBookmark(bookmark) {
+    this.$store.dispatch(this.BookmarksActions.selectBookmark(bookmark))
   }
 
-  editBookmark(bookmark) {
-    this.currentBookmark = bookmark
-  }
-
-  resetBookmark() {
-    this.currentBookmark = null
-  }
-
-  initNewBookmark() {
-    return {
-      title: '',
-      url: '',
-      category: this.getCurrentCategorySlug(),
-    }
+  resetSelectedBookmark() {
+    this.$store.dispatch(this.BookmarksActions.resetSelectedBookmark())
   }
 
   isCurrentBookmark(bookmark) {
@@ -54,21 +101,22 @@ class BookmarksController {
   }
 
   saveBookmark(bookmark) {
-    if (bookmark.id !== undefined) {
-      this.BookmarksModel.editBookmark(bookmark)
-    } else {
-      this.BookmarksModel.createBookmark(bookmark)
-    }
+    console.log(bookmark)
+    // if (bookmark.id !== undefined) {
+    //   this.BookmarksModel.editBookmark(bookmark)
+    // } else {
+    //   this.BookmarksModel.createBookmark(bookmark)
+    // }
   }
 
   deleteBookmark(bookmark) {
-    this.BookmarksModel.deleteBookmark(bookmark)
+    // this.BookmarksModel.deleteBookmark(bookmark)
   }
 
   onSave(bookmark) {
     this.saveBookmark(bookmark)
 
-    this.resetBookmark()
+    this.resetSelectedBookmark()
   }
 }
 

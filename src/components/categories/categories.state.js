@@ -24,6 +24,7 @@ export const categoriesDefaultState = [
   //    "name": "Science Fiction"
   // },
 ]
+
 export const categoriesReducer = (state = categoriesDefaultState, { type, payload }) => {
   switch(type) {
     case FETCH_CATEGORIES: {
@@ -51,6 +52,7 @@ export const categoryReducer = (state = categoryDefaultState, { type, payload })
   }
 }
 
+// Actions
 export const CategoriesActions = () => {
   const fetchCategories = categories => ({
     type: FETCH_CATEGORIES,

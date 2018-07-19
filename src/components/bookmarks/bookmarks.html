@@ -1,8 +1,8 @@
 <h1>{{ bookmarksListController.getCurrentCategoryName() }}</h1>
 
 <div class="segnalibr" ng-repeat="bookmark in bookmarksListController.bookmarks | filter: { category: bookmarksListController.getCurrentCategorySlug() }">
-  <button type="button" class="close text-perfect segnalibr-close" ng-click="bookmarksListController.resetBookmark(); bookmarksListController.deleteBookmark(bookmark)">&times;</button>
-  <button type="button" class="btn btn-outline-secondary" ng-click="bookmarksListController.editBookmark(bookmark)" ng-disabled="bookmarksListController.isCurrentBookmark(bookmark)">
+  <button type="button" class="close text-perfect segnalibr-close" ng-click="bookmarksListController.resetSelectedBookmark(); bookmarksListController.deleteBookmark(bookmark)">&times;</button>
+  <button type="button" class="btn btn-outline-secondary" ng-click="bookmarksListController.selectBookmark(bookmark)" ng-disabled="bookmarksListController.isCurrentBookmark(bookmark)">
     mod
   </button>
   <a href="{{ bookmark.url }}" target="_blank">{{ bookmark.title }}</a>
@@ -10,19 +10,18 @@
 
 <hr/>
 
-<div ng-if="bookmarksListController.getCurrentCategory()">
-  <button type="button" class="btn btn-lg btn-primary" ng-if="!bookmarksListController.currentBookmark" ng-click="bookmarksListController.createBookmark()">
+<div ng-if="bookmarksListController.getCurrentCategorySlug()">
+  <button type="button" class="btn btn-lg btn-primary" ng-if="!bookmarksListController.currentBookmark.id" ng-click="bookmarksListController.selectBookmark()">
     Crea Nuovo Segnalibr
   </button>
 </div>
 
 <bookmark-save
-  ng-if="bookmarksListController.currentBookmark"
-
+  ng-if="bookmarksListController.currentBookmark.id"
   bookmark="bookmarksListController.currentBookmark"
 
   save="bookmarksListController.onSave(bookmark)"
-  cancel="bookmarksListController.resetBookmark()"
+  cancel="bookmarksListController.resetSelectedBookmark()"
 ></bookmark-save>
 
 <!-- <ui-view>

@@ -26,7 +26,8 @@ class CategoriesController {
     this.$store.dispatch(this.CategoriesActions.fetchCategories())
 
     this.$timeout(() => {
-      const categoriesPayload = [{
+      const categoriesPayload = [
+        {
           "id": 42,
           "slug": "development",
           "name": "Development"
@@ -50,9 +51,6 @@ class CategoriesController {
 
       this.$store.dispatch(this.CategoriesActions.fetchCategories(categoriesPayload))
     }, 3000);
-
-    // this.CategoriesModel.getCategories()
-    //   .then(categories => this.categories = categories)
   }
 
   $onDestroy() {
