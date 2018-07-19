@@ -15,10 +15,11 @@ class CategoriesController {
   }
 
   $onInit() {
+    this.unsubscribe = this.$store.subscribe(() => this.categories = this.$store.getState())
+
     this.$store.dispatch({
       type: FETCH_CATEGORIES
     })
-    this.categories = this.$store.getState()
 
     this.$timeout(() => {
       const categoriesPayload = [{
@@ -47,11 +48,16 @@ class CategoriesController {
         type: FETCH_CATEGORIES,
         payload: categoriesPayload,
       })
-      this.categories = this.$store.getState()
     }, 3000);
 
     // this.CategoriesModel.getCategories()
     //   .then(categories => this.categories = categories)
+  }
+
+  $onDestroy() {
+    if (typeof this.unsubscribe === 'function') {
+      this.unsubscribe()
+    }
   }
 
   onCategorySelect(category) {
