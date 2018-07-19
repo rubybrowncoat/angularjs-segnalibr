@@ -16,7 +16,15 @@ import thunk from 'redux-thunk'
 import rootReducer from './app/app.store'
 
 const storeConfig = $ngReduxProvider => {
-  $ngReduxProvider.createStoreWith(rootReducer, [thunk])
+  console.log(window.__REDUX_DEVTOOLS_EXTENSION__)
+
+  $ngReduxProvider.createStoreWith(
+    rootReducer,
+    [thunk],
+    window.__REDUX_DEVTOOLS_EXTENSION__
+      ? [window.__REDUX_DEVTOOLS_EXTENSION__()]
+      : []
+  )
 }
 
 angular.module('Segnalibr', [
@@ -29,4 +37,9 @@ angular.module('Segnalibr', [
   ComponentsModule.name,
 ])
 .config(storeConfig)
+.run(($ngRedux, $rootScope, $timeout) => {
+  $ngRedux.subscribe(() => {
+    $timeout(() => {$rootScope.$apply(() => {})}, 100)
+  })
+})
 .component('app', appComponent)
