@@ -2,22 +2,6 @@
   margin-top: 1em;
 }
 
-.sidebar a {
-  font-family: Gibson;
-  color: #343a40;
-
-  font-size: 26px;
-
-  transition: all .3s ease-in-out;
-}
-.sidebar .active a {
-  font-style: italic;
-  color: #687581;
-}
-.sidebar a:hover {
-    color: #687581;
-}
-
 @media (min-width: 382px) {
   .sidebar {
       position: fixed;

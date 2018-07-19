@@ -1,7 +1,8 @@
 class BookmarksController {
   // @ngInject
   constructor(BookmarksModel) {
-    this.bookmarks = BookmarksModel.bookmarks
+    BookmarksModel.getBookmarks()
+      .then(bookmarks => this.bookmarks = bookmarks)
   }
 }
 
