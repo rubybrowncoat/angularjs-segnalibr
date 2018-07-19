@@ -66,22 +66,18 @@ export const bookmarksReducer = (state = bookmarksDefaultState, { type, payload 
       return payload || state
     }
     case CREATE_BOOKMARK: {
-      state.push(payload)
-
-      return state
+      return [...state, payload]
     }
     case UPDATE_BOOKMARK: {
       const index = state.findIndex(bookmark => bookmark.id === payload.id)
 
-      state.splice(index, 1, payload)
-
-      return state
+      return [...state.slice(0, index), payload, ...state.slice(index + 1)]
     }
     case DELETE_BOOKMARK: {
       if (confirm(`Stai per cancellare un Segnalibr. L'operazione non è reversibile.`)) {
         const index = state.findIndex(bookmark => bookmark.id === payload.id)
 
-        state.splice(index, 1)
+        return [...state.slice(0, index), ...state.slice(index + 1)]
       }
 
       return state
