@@ -10,6 +10,7 @@ class CategoriesModel {
     this.$q = $q
 
     this.categories = []
+    this.currentCategory = null
   }
 
   getData(response) {
@@ -30,50 +31,15 @@ class CategoriesModel {
         .then(data => this.gatherCategories(data))
     )
   }
+
+  getCurrentCategory() {
+    return this.currentCategory
+  }
+
+  setCurrentCategory(category) {
+    this.getCategories()
+      .then(() => this.currentCategory = category)
+  }
 }
 
 export default CategoriesModel
-
-// angular.module('segnalibr.models.categories', [
-//   // Dependencies
-// ])
-// .service('CategoriesModel', ['$http', '$q', function(http, que) {
-//   let categories = []
-//   let currentCategory = null
-
-//   const endpoints = {
-//     fetch: 'data/categories.json',
-//   }
-
-//   const getData = response => response.data
-//   const gatherCategories = response => categories = getData(response)
-
-//   const findCategoryBySlug = categorySlug =>
-//     categories.find(category => category.slug === categorySlug)
-
-//   this.getCategories = () => que.when(categories.length
-//     ? categories
-//     : http.get(endpoints.fetch).then(gatherCategories)
-//   )
-
-//   this.getCategoryBySlug = categorySlug => {
-//     const deferred = que.defer()
-
-//     if (categories.length) {
-//       deferred.resolve(findCategoryBySlug(categorySlug))
-//     } else {
-//       this.getCategories()
-//         .then(() => deferred.resolve(findCategoryBySlug(categorySlug)))
-//     }
-
-//     return deferred.promise
-//   }
-
-//   this.setCurrentCategoryBySlug = categorySlug => {
-//     this.getCategoryBySlug(categorySlug)
-//       .then(category => currentCategory = category)
-//   }
-
-//   this.getCurrentCategory = () => currentCategory
-//   this.getCurrentCategorySlug = () => currentCategory ? currentCategory.slug : ''
-// }])

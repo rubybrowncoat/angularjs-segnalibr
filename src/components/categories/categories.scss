@@ -1,5 +1,10 @@
 .nav-item {
   margin-top: 1em;
+  padding-left: 10px;
+
+  &.active {
+    background: linear-gradient(to right, #343a40 0%, #343a40 7px, transparent 8px, transparent 100%);
+  }
 }
 
 @media (min-width: 382px) {

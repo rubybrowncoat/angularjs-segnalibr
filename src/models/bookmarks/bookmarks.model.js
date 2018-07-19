@@ -1,6 +1,16 @@
+import UidGenerator from '../../utils/uid'
+
 const endpoints = {
   fetch: 'data/bookmarks.json',
 }
+
+const bookmarkUids = new UidGenerator('bookmark-')
+
+console.log(bookmarkUids)
+
+bookmarkUids.generate()
+
+console.log(bookmarkUids)
 
 class BookmarksModel {
   constructor($http, $q) {
@@ -29,6 +39,28 @@ class BookmarksModel {
         .then(response => this.getData(response))
         .then(data => this.gatherBookmarks(data))
     )
+  }
+
+  createBookmark(bookmark) {
+    this.bookmarks.push({
+      ...bookmark,
+
+      id: bookmarkUids.generate(),
+    })
+  }
+
+  editBookmark(bookmark) {
+    const index = this.bookmarks.findIndex(findBookmark => findBookmark.id === bookmark.id)
+
+    this.bookmarks.splice(index, 1, bookmark)
+  }
+
+  deleteBookmark(bookmark) {
+    if (confirm(`Stai per cancellare un Segnalibr. L'operazione non è reversibile.`)) {
+      const index = this.bookmarks.findIndex(findBookmark => findBookmark.id === bookmark.id)
+
+      this.bookmarks.splice(index, 1)
+    }
   }
 }
 

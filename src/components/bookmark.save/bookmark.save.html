@@ -1,0 +1,20 @@
+<div class="save-bookmark">
+  <h4 ng-if="bookmarkSaveController.isCreating()">Crea un Segnalibro in
+    <span class="text-muted">{{ bookmarkSaveController.editedBookmark.category }}</span>
+  </h4>
+  <h4 ng-if="bookmarkSaveController.isEditing()">Modifica {{ bookmarkSaveController.bookmark.title }}</h4>
+
+  <form class="edit-form" role="form" novalidate
+    ng-submit="bookmarkSaveController.save({ bookmark: bookmarkSaveController.editedBookmark })" >
+    <div class="form-group">
+      <label for="bookmarkTitle">Titolo</label>
+      <input type="text" class="form-control" id="bookmarkTitle" ng-model="bookmarkSaveController.editedBookmark.title" placeholder="Titolo del Segnalibr">
+    </div>
+    <div class="form-group">
+      <label for="bookmarkUrl">URL</label>
+      <input type="text" class="form-control" id="bookmarkUrl" ng-model="bookmarkSaveController.editedBookmark.url" placeholder="URL del Segnalibr">
+    </div>
+    <button type="submit" class="btn btn-info">Salva</button>
+    <button type="button" class="btn btn-warning pull-right" ng-click="bookmarkSaveController.cancel()">Annulla…</button>
+  </form>
+</div>

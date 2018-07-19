@@ -7,6 +7,7 @@ const categoryItemComponent = {
     category: '<',
     select: '&'
   },
+
   template,
 
   controllerAs: 'categoryItemController',

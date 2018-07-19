@@ -12,7 +12,13 @@ class CategoriesController {
   }
 
   onCategorySelect(category) {
-    console.log(category)
+    this.CategoriesModel.setCurrentCategory(category)
+  }
+
+  isCurrentCategory(category) {
+    const currentCategory = this.CategoriesModel.getCurrentCategory()
+
+    return currentCategory && currentCategory.slug === category.slug
   }
 }
 
