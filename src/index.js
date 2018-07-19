@@ -3,6 +3,11 @@ import angular from 'angular'
 import ngAnimate from 'angular-animate'
 import uiRouter from '@uirouter/angularjs'
 
+import 'bootstrap'
+import './index.scss'
+
+import appComponent from './components/app/app.component'
+
 angular.module('Segnalibr', [
   ngAnimate,
   uiRouter,
@@ -16,6 +21,4 @@ angular.module('Segnalibr', [
 
   $urlRouterProvider.otherwise('/')
 })
-.controller('MainController', function($scope, $stateParams) {
-  console.log('Hello from ES6+')
-})
+.component('app', appComponent)

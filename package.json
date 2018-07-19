@@ -4,6 +4,8 @@
   "description": "Un'applicazione bellissima",
   "main": "index.html",
   "scripts": {
+    "dev": "webpack --config webpack.config.development.js --mode development --watch",
+    "prod": "webpack --config webpack.config.production.js --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sandro Pertini",
@@ -12,13 +14,23 @@
     "@uirouter/angularjs": "^1.0.18",
     "angular": "^1.7.2",
     "angular-animate": "^1.7.2",
-    "core-js": "^2.5.7"
+    "bootstrap": "^4.1.2",
+    "core-js": "^2.5.7",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.3"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.53",
     "@babel/preset-env": "^7.0.0-beta.53",
+    "autoprefixer": "^8.6.5",
     "babel-loader": "^8.0.0-beta.4",
+    "css-loader": "^1.0.0",
     "ng-annotate-loader": "^0.6.1",
+    "node-sass": "^4.9.2",
+    "postcss-loader": "^2.1.6",
+    "raw-loader": "^0.5.1",
+    "sass-loader": "^7.0.3",
+    "style-loader": "^0.21.0",
     "webpack": "^4.16.0",
     "webpack-command": "^0.4.1"
   }
