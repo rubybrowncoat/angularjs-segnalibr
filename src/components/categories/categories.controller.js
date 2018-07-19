@@ -6,9 +6,9 @@ import {
 
 class CategoriesController {
   // @ngInject
-  constructor($timeout, $store, CategoriesActions) {
+  constructor($timeout, $ngRedux, CategoriesActions) {
     this.$timeout = $timeout
-    this.$store = $store
+    this.$store = $ngRedux
 
     this.CategoriesActions = CategoriesActions
 
