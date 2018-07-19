@@ -50,3 +50,20 @@ export const categoryReducer = (state = categoryDefaultState, { type, payload })
     }
   }
 }
+
+export const CategoriesActions = () => {
+  const fetchCategories = categories => ({
+    type: FETCH_CATEGORIES,
+    payload: categories,
+  })
+
+  const selectCategory = category => ({
+    type: GET_CURRENT_CATEGORY,
+    payload: category,
+  })
+
+  return {
+    fetchCategories,
+    selectCategory,
+  }
+}

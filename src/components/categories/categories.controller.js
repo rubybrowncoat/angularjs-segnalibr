@@ -1,15 +1,16 @@
 import {
   categoryReducer,
 
-  FETCH_CATEGORIES,
   GET_CURRENT_CATEGORY,
 } from './categories.state'
 
 class CategoriesController {
   // @ngInject
-  constructor($timeout, $store) {
+  constructor($timeout, $store, CategoriesActions) {
     this.$timeout = $timeout
     this.$store = $store
+
+    this.CategoriesActions = CategoriesActions
 
     this.categories = []
   }
@@ -17,9 +18,7 @@ class CategoriesController {
   $onInit() {
     this.unsubscribe = this.$store.subscribe(() => this.categories = this.$store.getState())
 
-    this.$store.dispatch({
-      type: FETCH_CATEGORIES
-    })
+    this.$store.dispatch(this.CategoriesActions.fetchCategories())
 
     this.$timeout(() => {
       const categoriesPayload = [{
@@ -44,10 +43,7 @@ class CategoriesController {
         },
       ]
 
-      this.$store.dispatch({
-        type: FETCH_CATEGORIES,
-        payload: categoriesPayload,
-      })
+      this.$store.dispatch(this.CategoriesActions.fetchCategories(categoriesPayload))
     }, 3000);
 
     // this.CategoriesModel.getCategories()
@@ -62,10 +58,8 @@ class CategoriesController {
 
   onCategorySelect(category) {
     this.currentCategory = categoryReducer(
-      this.currentCategory, {
-        type: GET_CURRENT_CATEGORY,
-        payload: category
-      }
+      this.currentCategory,
+      this.CategoriesActions.selectCategory(category)
     )
   }
 

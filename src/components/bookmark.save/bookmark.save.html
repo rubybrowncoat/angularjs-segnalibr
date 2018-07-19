@@ -2,7 +2,9 @@
   <h4 ng-if="bookmarkSaveController.isCreating()">Crea un Segnalibro in
     <span class="text-muted">{{ bookmarkSaveController.editedBookmark.category }}</span>
   </h4>
-  <h4 ng-if="bookmarkSaveController.isEditing()">Modifica {{ bookmarkSaveController.bookmark.title }}</h4>
+  <h4 ng-if="bookmarkSaveController.isEditing()">Modifica
+    <span class="text-muted">{{ bookmarkSaveController.bookmark.title }}</span>
+  </h4>
 
   <form class="edit-form" role="form" novalidate
     ng-submit="bookmarkSaveController.save({ bookmark: bookmarkSaveController.editedBookmark })" >
