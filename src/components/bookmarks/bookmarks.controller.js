@@ -101,16 +101,11 @@ class BookmarksController {
   }
 
   saveBookmark(bookmark) {
-    console.log(bookmark)
-    // if (bookmark.id !== undefined) {
-    //   this.BookmarksModel.editBookmark(bookmark)
-    // } else {
-    //   this.BookmarksModel.createBookmark(bookmark)
-    // }
+    this.$store.dispatch(this.BookmarksActions.saveBookmark(bookmark))
   }
 
   deleteBookmark(bookmark) {
-    // this.BookmarksModel.deleteBookmark(bookmark)
+    this.$store.dispatch(this.BookmarksActions.deleteBookmark(bookmark))
   }
 
   onSave(bookmark) {

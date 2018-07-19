@@ -6,11 +6,11 @@ class BookmarkSaveController {
   }
 
   isCreating() {
-    return this.editedBookmark.new
+    return !this.editedBookmark.id
   }
 
   isEditing() {
-    return !this.editedBookmark.new
+    return !!this.editedBookmark.id
   }
 }
 

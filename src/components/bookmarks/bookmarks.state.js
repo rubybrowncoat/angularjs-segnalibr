@@ -4,6 +4,10 @@ const bookmarkUids = new UidGenerator('bookmark-')
 // Bookmarks
 export const FETCH_BOOKMARKS = 'FETCH_BOOKMARKS'
 
+export const CREATE_BOOKMARK = 'CREATE_BOOKMARK'
+export const UPDATE_BOOKMARK = 'UPDATE_BOOKMARK'
+export const DELETE_BOOKMARK = 'DELETE_BOOKMARK'
+
 // export const bookmarksDefaultState = []
 export const bookmarksDefaultState = [
   {
@@ -61,6 +65,27 @@ export const bookmarksReducer = (state = bookmarksDefaultState, { type, payload 
     case FETCH_BOOKMARKS: {
       return payload || state
     }
+    case CREATE_BOOKMARK: {
+      state.push(payload)
+
+      return state
+    }
+    case UPDATE_BOOKMARK: {
+      const index = state.findIndex(bookmark => bookmark.id === payload.id)
+
+      state.splice(index, 1, payload)
+
+      return state
+    }
+    case DELETE_BOOKMARK: {
+      if (confirm(`Stai per cancellare un Segnalibr. L'operazione non è reversibile.`)) {
+        const index = state.findIndex(bookmark => bookmark.id === payload.id)
+
+        state.splice(index, 1)
+      }
+
+      return state
+    }
     default: {
       return state
     }
@@ -101,6 +126,24 @@ export const BookmarksActions = $ngRedux => {
     payload: bookmarks,
   })
 
+  const saveBookmark = bookmark => {
+    const hasId = !!bookmark.id
+
+    return {
+      type: hasId ? UPDATE_BOOKMARK : CREATE_BOOKMARK,
+      payload: {
+        ...bookmark,
+
+        id: hasId ? bookmark.id : bookmarkUids.generate(),
+      },
+    }
+  }
+
+  const deleteBookmark = bookmark => ({
+    type: DELETE_BOOKMARK,
+    payload: bookmark,
+  })
+
   const selectBookmark = (bookmark = bookmarkDefaultState) => {
     const { category } = $ngRedux.getState()
 
@@ -108,9 +151,9 @@ export const BookmarksActions = $ngRedux => {
       type: GET_SELECTED_BOOKMARK,
       payload: bookmark.id
         ? { ...bookmark }
-        : { id: bookmarkUids.generate(), category: category.slug, new: true },
+        : { category: category.slug },
     }
-}
+  }
 
   const resetSelectedBookmark = () => ({
     type: RESET_SELECTED_BOOKMARK,
@@ -118,6 +161,9 @@ export const BookmarksActions = $ngRedux => {
 
   return {
     fetchBookmarks,
+
+    saveBookmark,
+    deleteBookmark,
 
     selectBookmark,
     resetSelectedBookmark,

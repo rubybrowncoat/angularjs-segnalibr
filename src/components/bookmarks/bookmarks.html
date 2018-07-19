@@ -11,13 +11,13 @@
 <hr/>
 
 <div ng-if="bookmarksListController.getCurrentCategorySlug()">
-  <button type="button" class="btn btn-lg btn-primary" ng-if="!bookmarksListController.currentBookmark.id" ng-click="bookmarksListController.selectBookmark()">
+  <button type="button" class="btn btn-lg btn-primary" ng-if="!bookmarksListController.currentBookmark.category" ng-click="bookmarksListController.selectBookmark()">
     Crea Nuovo Segnalibr
   </button>
 </div>
 
 <bookmark-save
-  ng-if="bookmarksListController.currentBookmark.id"
+  ng-if="bookmarksListController.currentBookmark.category"
   bookmark="bookmarksListController.currentBookmark"
 
   save="bookmarksListController.onSave(bookmark)"
