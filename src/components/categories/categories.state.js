@@ -1,5 +1,5 @@
 const ENDPOINTS = {
-  FETCH: 'data/categories.json',
+  FETCH: () => 'http://localhost:4242/categories',
 }
 
 // Categories
@@ -44,7 +44,7 @@ export const CategoriesActions = ($http, $q) => {
     const { categories } = getState()
 
     return $q.when(
-      categories.length ? categories : $http.get(ENDPOINTS.FETCH).then(getData)
+      categories.length ? categories : $http.get(ENDPOINTS.FETCH()).then(getData)
     ).then(data => dispatch({
       type: FETCH_CATEGORIES,
       payload: data,

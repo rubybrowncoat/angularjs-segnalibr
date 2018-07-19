@@ -2,7 +2,10 @@ import UidGenerator from '../../utils/uid'
 const bookmarkUids = new UidGenerator('bookmark-')
 
 const ENDPOINTS = {
-  FETCH: 'data/bookmarks.json',
+  FETCH: () => 'http://localhost:4242/bookmarks',
+  POST: () => 'http://localhost:4242/bookmarks',
+  PUT: (bookmark) => `http://localhost:4242/bookmarks/${bookmark.id}`,
+  DELETE: (bookmark) => `http://localhost:4242/bookmarks/${bookmark.id}`,
 }
 
 // Bookmarks
@@ -77,30 +80,35 @@ export const BookmarksActions = ($ngRedux, $http, $q) => {
     const { bookmarks } = getState()
 
     return $q.when(
-      bookmarks.length ? bookmarks : $http.get(ENDPOINTS.FETCH).then(getData)
+      bookmarks.length ? bookmarks : $http.get(ENDPOINTS.FETCH()).then(getData)
     ).then(data => dispatch({
       type: FETCH_BOOKMARKS,
       payload: data,
     }))
   }
 
-  const saveBookmark = bookmark => {
+  const saveBookmark = bookmark => dispatch => {
     const hasId = !!bookmark.id
 
-    return {
-      type: hasId ? UPDATE_BOOKMARK : CREATE_BOOKMARK,
-      payload: {
-        ...bookmark,
-
-        id: hasId ? bookmark.id : bookmarkUids.generate(),
-      },
+    if (hasId) {
+      return $http.put(ENDPOINTS.PUT(bookmark), bookmark).then(getData).then(data => dispatch({
+        type: UPDATE_BOOKMARK,
+        payload: data,
+      }))
     }
+
+    return $http.post(ENDPOINTS.POST(), bookmark).then(getData).then(data => dispatch({
+      type: CREATE_BOOKMARK,
+      payload: data,
+    }))
   }
 
-  const deleteBookmark = bookmark => ({
-    type: DELETE_BOOKMARK,
-    payload: bookmark,
-  })
+  const deleteBookmark = bookmark => dispatch => {
+    return $http.delete(ENDPOINTS.DELETE(bookmark), bookmark).then(getData).then(() => dispatch({
+      type: DELETE_BOOKMARK,
+      payload: bookmark,
+    }))
+  }
 
   const selectBookmark = (bookmark = bookmarkDefaultState) => {
     const { category } = $ngRedux.getState()
