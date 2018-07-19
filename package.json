@@ -11,6 +11,15 @@
   "dependencies": {
     "@uirouter/angularjs": "^1.0.18",
     "angular": "^1.7.2",
-    "angular-animate": "^1.7.2"
+    "angular-animate": "^1.7.2",
+    "core-js": "^2.5.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.53",
+    "@babel/preset-env": "^7.0.0-beta.53",
+    "babel-loader": "^8.0.0-beta.4",
+    "ng-annotate-loader": "^0.6.1",
+    "webpack": "^4.16.0",
+    "webpack-command": "^0.4.1"
   }
 }

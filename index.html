@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="assets/css/animations.css">
 </head>
 
-<body>
+<body ng-controller="MainController">
   <nav class="navbar navbar-dark sticky-top bg-obscuro flex-md-nowrap p-0">
     <a class="navbar-brand col-md-3 mr-0 text-perfect" href="#" ui-sref="segnalibr.categories">Segnali.br</a>
     <div class="w-100 nav-spacer bg-perfect"></div>
@@ -36,19 +36,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
 
-  <script src="node_modules/angular/angular.min.js"></script>
-  <script src="node_modules/angular-animate/angular-animate.min.js"></script>
-  <script src="node_modules/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
-
-  <script src="src/models/categories.model.js"></script>
-  <script src="src/models/bookmarks.model.js"></script>
-
-  <script src="src/categories/bookmarks/edit/bookmarks.edit.js"></script>
-  <script src="src/categories/bookmarks/create/bookmarks.create.js"></script>
-  <script src="src/categories/bookmarks/bookmarks.js"></script>
-  <script src="src/categories/categories.js"></script>
-
-  <script src="src/segnalibr.application.js"></script>
+  <!-- Application including Principal Dependencies -->
+  <script src="dist/bundle.js"></script>
 </body>
 
 </html>
