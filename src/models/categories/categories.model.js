@@ -3,11 +3,13 @@ const endpoints = {
 }
 
 class CategoriesModel {
-  constructor($http, $q) {
+  constructor($http, $q, $rootScope) {
     'ngInject'
 
     this.$http = $http
     this.$q = $q
+
+    this.$rootScope = $rootScope
 
     this.categories = []
     this.currentCategory = null
@@ -38,7 +40,11 @@ class CategoriesModel {
 
   setCurrentCategory(category) {
     this.getCategories()
-      .then(() => this.currentCategory = category)
+      .then(() => {
+        this.currentCategory = category
+
+        this.$rootScope.$broadcast('category.current.updated')
+      })
   }
 }
 

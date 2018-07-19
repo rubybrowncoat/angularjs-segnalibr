@@ -1,13 +1,19 @@
 class BookmarksController {
   // @ngInject
-  constructor(BookmarksModel, CategoriesModel) {
+  constructor(BookmarksModel, CategoriesModel, $scope) {
     this.BookmarksModel = BookmarksModel
     this.CategoriesModel = CategoriesModel
+
+    this.$scope = $scope
   }
 
   $onInit() {
     this.BookmarksModel.getBookmarks()
       .then(bookmarks => this.bookmarks = bookmarks)
+
+    this.$scope.$on('category.current.updated', () => {
+      this.resetBookmark()
+    })
   }
 
   getCurrentCategory() {
