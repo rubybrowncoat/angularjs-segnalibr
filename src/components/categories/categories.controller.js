@@ -1,5 +1,4 @@
 import {
-  categoriesReducer,
   categoryReducer,
 
   FETCH_CATEGORIES,
@@ -8,16 +7,18 @@ import {
 
 class CategoriesController {
   // @ngInject
-  constructor($timeout) {
+  constructor($timeout, $store) {
     this.$timeout = $timeout
+    this.$store = $store
 
     this.categories = []
   }
 
   $onInit() {
-    this.categories = categoriesReducer(undefined, {
+    this.$store.dispatch({
       type: FETCH_CATEGORIES
     })
+    this.categories = this.$store.getState()
 
     this.$timeout(() => {
       const categoriesPayload = [{
@@ -42,10 +43,11 @@ class CategoriesController {
         },
       ]
 
-      this.categories = categoriesReducer(this.categories, {
+      this.$store.dispatch({
         type: FETCH_CATEGORIES,
         payload: categoriesPayload,
-      });
+      })
+      this.categories = this.$store.getState()
     }, 3000);
 
     // this.CategoriesModel.getCategories()

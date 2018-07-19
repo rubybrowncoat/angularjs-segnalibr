@@ -6,10 +6,18 @@ import uiRouter from '@uirouter/angularjs'
 import 'bootstrap'
 import './index.scss'
 
+import Store from './app/app.store'
+import {
+  categoriesReducer,
+  categoriesDefaultState
+} from './components/categories/categories.state'
+
 import appComponent from './app/app.component'
 
 import ModelsModule from './models/models'
 import ComponentsModule from './components/components'
+
+const store = new Store(categoriesReducer, categoriesDefaultState)
 
 angular.module('Segnalibr', [
   ngAnimate,
@@ -18,13 +26,5 @@ angular.module('Segnalibr', [
   ModelsModule.name,
   ComponentsModule.name,
 ])
-.config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider.state({
-    name: 'segnalibr',
-    url: '',
-    abstract: true,
-  })
-
-  $urlRouterProvider.otherwise('/')
-})
+.value('$store', store)
 .component('app', appComponent)

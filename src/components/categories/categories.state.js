@@ -1,5 +1,8 @@
-// const defaultState = []
-const defaultState = [
+// Categories
+export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
+
+// export const categoriesDefaultState = []
+export const categoriesDefaultState = [
   {
      "id": 42,
      "slug": "development",
@@ -21,11 +24,7 @@ const defaultState = [
   //    "name": "Science Fiction"
   // },
 ]
-
-export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
-export const GET_CURRENT_CATEGORY = 'GET_CURRENT_CATEGORY'
-
-export const categoriesReducer = (state = defaultState, { type, payload }) => {
+export const categoriesReducer = (state = categoriesDefaultState, { type, payload }) => {
   switch(type) {
     case FETCH_CATEGORIES: {
       return payload || state
@@ -36,7 +35,12 @@ export const categoriesReducer = (state = defaultState, { type, payload }) => {
   }
 }
 
-export const categoryReducer = (state = defaultState, { type, payload }) => {
+// Category
+export const GET_CURRENT_CATEGORY = 'GET_CURRENT_CATEGORY'
+
+export const categoryDefaultState = null
+
+export const categoryReducer = (state = categoryDefaultState, { type, payload }) => {
   switch(type) {
     case GET_CURRENT_CATEGORY: {
       return payload || state
