@@ -7,18 +7,15 @@ import uiRouter from '@uirouter/angularjs'
 import 'bootstrap'
 import './index.scss'
 
-import {
-  categoriesReducer,
-  categoriesDefaultState
-} from './components/categories/categories.state'
-
 import appComponent from './app/app.component'
 
 import ModelsModule from './models/models'
 import ComponentsModule from './components/components'
 
+import rootReducer from './app/app.store'
+
 const storeConfig = $ngReduxProvider => {
-  $ngReduxProvider.createStoreWith(categoriesReducer, [], [], categoriesDefaultState)
+  $ngReduxProvider.createStoreWith(rootReducer, [])
 }
 
 angular.module('Segnalibr', [

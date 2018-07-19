@@ -1,35 +1,32 @@
 class BookmarksController {
   // @ngInject
-  constructor(BookmarksModel, CategoriesModel, $scope) {
+  constructor(BookmarksModel, $ngRedux) {
     this.BookmarksModel = BookmarksModel
-    this.CategoriesModel = CategoriesModel
 
-    this.$scope = $scope
+    this.$store = $ngRedux
   }
 
   $onInit() {
     this.BookmarksModel.getBookmarks()
       .then(bookmarks => this.bookmarks = bookmarks)
 
-    this.$scope.$on('category.current.updated', () => {
-      this.resetBookmark()
+    this.$store.subscribe(() => {
+      const { category } = this.$store.getState()
+
+      this.currentCategory = category
     })
   }
 
   getCurrentCategory() {
-    return this.CategoriesModel.getCurrentCategory()
+    return this.currentCategory
   }
 
   getCurrentCategorySlug() {
-    const category = this.getCurrentCategory()
-
-    return category ? category.slug : ''
+    return this.currentCategory ? this.currentCategory.slug : ''
   }
 
   getCurrentCategoryName() {
-    const category = this.getCurrentCategory()
-
-    return category ? category.name : null
+    return this.currentCategory ? this.currentCategory.name : null
   }
 
   createBookmark() {

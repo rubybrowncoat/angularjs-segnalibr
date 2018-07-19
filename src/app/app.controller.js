@@ -1,11 +1,13 @@
 class BookmarksController {
   // @ngInject
-  constructor(CategoriesModel) {
-    this.CategoriesModel = CategoriesModel
+  constructor($ngRedux, CategoriesActions) {
+    this.$store = $ngRedux
+
+    this.CategoriesActions = CategoriesActions
   }
 
   resetCategory() {
-    this.CategoriesModel.setCurrentCategory(null)
+    this.$store.dispatch(this.CategoriesActions.selectCategory({ slug: undefined }))
   }
 }
 

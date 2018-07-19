@@ -1,32 +1,15 @@
-class Store {
-  constructor(reducer, initialState = {}) {
-    this.reducer = reducer
-    this.state = {
-      ...initialState,
-    }
+import {
+  combineReducers
+} from 'redux'
 
-    this.listeners = []
-  }
+import {
+  categoriesReducer as categories,
+  categoryReducer as category
+} from '../components/categories/categories.state'
 
-  getState() {
-    return this.state
-  }
+const rootReducer = combineReducers({
+  categories,
+  category,
+})
 
-  dispatch(action) {
-    this.state = this.reducer(this.state, action)
-
-    // Run listeners
-    this.listeners.forEach(listener => listener())
-  }
-
-  subscribe(listener) {
-    this.listeners = [...this.listeners, listener]
-
-    // Returns unsubscribe function
-    return () => {
-      this.listeners = this.listeners.filter(l => l !== listener)
-    }
-  }
-}
-
-export default Store
+export default rootReducer

@@ -38,7 +38,7 @@ export const categoriesReducer = (state = categoriesDefaultState, { type, payloa
 // Category
 export const GET_CURRENT_CATEGORY = 'GET_CURRENT_CATEGORY'
 
-export const categoryDefaultState = null
+export const categoryDefaultState = { slug: undefined }
 
 export const categoryReducer = (state = categoryDefaultState, { type, payload }) => {
   switch(type) {

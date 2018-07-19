@@ -16,7 +16,12 @@ class CategoriesController {
   }
 
   $onInit() {
-    this.unsubscribe = this.$store.subscribe(() => this.categories = this.$store.getState())
+    this.unsubscribe = this.$store.subscribe(() => {
+      const { categories, category } = this.$store.getState()
+
+      this.categories = categories
+      this.currentCategory = category
+    })
 
     this.$store.dispatch(this.CategoriesActions.fetchCategories())
 
@@ -57,10 +62,7 @@ class CategoriesController {
   }
 
   onCategorySelect(category) {
-    this.currentCategory = categoryReducer(
-      this.currentCategory,
-      this.CategoriesActions.selectCategory(category)
-    )
+    this.$store.dispatch(this.CategoriesActions.selectCategory(category))
   }
 
   isCurrentCategory(category) {
