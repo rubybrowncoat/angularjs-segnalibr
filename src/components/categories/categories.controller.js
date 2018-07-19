@@ -1,24 +1,68 @@
+import {
+  categoriesReducer,
+  categoryReducer,
+
+  FETCH_CATEGORIES,
+  GET_CURRENT_CATEGORY,
+} from './categories.state'
+
 class CategoriesController {
   // @ngInject
-  constructor(CategoriesModel) {
-    this.CategoriesModel = CategoriesModel
+  constructor($timeout) {
+    this.$timeout = $timeout
 
     this.categories = []
   }
 
   $onInit() {
-    this.CategoriesModel.getCategories()
-      .then(categories => this.categories = categories)
+    this.categories = categoriesReducer(undefined, {
+      type: FETCH_CATEGORIES
+    })
+
+    this.$timeout(() => {
+      const categoriesPayload = [{
+          "id": 42,
+          "slug": "development",
+          "name": "Development"
+        },
+        {
+          "id": 16,
+          "slug": "design",
+          "name": "Design"
+        },
+        {
+          "id": 70,
+          "slug": "videogames",
+          "name": "Video Games"
+        },
+        {
+          "id": 41,
+          "slug": "scifi",
+          "name": "Science Fiction"
+        },
+      ]
+
+      this.categories = categoriesReducer(this.categories, {
+        type: FETCH_CATEGORIES,
+        payload: categoriesPayload,
+      });
+    }, 3000);
+
+    // this.CategoriesModel.getCategories()
+    //   .then(categories => this.categories = categories)
   }
 
   onCategorySelect(category) {
-    this.CategoriesModel.setCurrentCategory(category)
+    this.currentCategory = categoryReducer(
+      this.currentCategory, {
+        type: GET_CURRENT_CATEGORY,
+        payload: category
+      }
+    )
   }
 
   isCurrentCategory(category) {
-    const currentCategory = this.CategoriesModel.getCurrentCategory()
-
-    return currentCategory && currentCategory.slug === category.slug
+    return this.currentCategory && this.currentCategory.slug === category.slug
   }
 }
 
