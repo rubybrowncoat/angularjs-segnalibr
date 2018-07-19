@@ -1,66 +1,34 @@
-import {
-  categoryReducer,
-
-  GET_CURRENT_CATEGORY,
-} from './categories.state'
-
 class CategoriesController {
   // @ngInject
-  constructor($timeout, $ngRedux, CategoriesActions) {
-    this.$timeout = $timeout
+  constructor($ngRedux, CategoriesActions, BookmarksActions) {
     this.$store = $ngRedux
 
     this.CategoriesActions = CategoriesActions
+    this.BookmarksActions = BookmarksActions
 
     this.categories = []
   }
 
   $onInit() {
-    this.unsubscribe = this.$store.subscribe(() => {
-      const { categories, category } = this.$store.getState()
+    this.unsubscribe = this.$store.connect(state => ({
+      categories: state.categories,
+      currentCategory: state.category,
+    }), {
+      ...this.CategoriesActions,
+      ...this.BookmarksActions,
+    })(this)
 
-      this.categories = categories
-      this.currentCategory = category
-    })
-
-    this.$store.dispatch(this.CategoriesActions.fetchCategories())
-
-    this.$timeout(() => {
-      const categoriesPayload = [
-        {
-          "id": 42,
-          "slug": "development",
-          "name": "Development"
-        },
-        {
-          "id": 16,
-          "slug": "design",
-          "name": "Design"
-        },
-        {
-          "id": 70,
-          "slug": "videogames",
-          "name": "Video Games"
-        },
-        {
-          "id": 41,
-          "slug": "scifi",
-          "name": "Science Fiction"
-        },
-      ]
-
-      this.$store.dispatch(this.CategoriesActions.fetchCategories(categoriesPayload))
-    }, 3000);
+    this.fetchCategories()
   }
 
   $onDestroy() {
-    if (typeof this.unsubscribe === 'function') {
-      this.unsubscribe()
-    }
+    this.unsubscribe()
   }
 
   onCategorySelect(category) {
-    this.$store.dispatch(this.CategoriesActions.selectCategory(category))
+    this.resetSelectedBookmark()
+
+    this.selectCategory(category)
   }
 
   isCurrentCategory(category) {

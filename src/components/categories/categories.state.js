@@ -8,21 +8,21 @@ export const categoriesDefaultState = [
      "slug": "development",
      "name": "Development"
   },
-  // {
-  //    "id": 16,
-  //    "slug": "design",
-  //    "name": "Design"
-  // },
-  // {
-  //    "id": 70,
-  //    "slug": "videogames",
-  //    "name": "Video Games"
-  // },
-  // {
-  //    "id": 41,
-  //    "slug": "scifi",
-  //    "name": "Science Fiction"
-  // },
+  {
+     "id": 16,
+     "slug": "design",
+     "name": "Design"
+  },
+  {
+     "id": 70,
+     "slug": "videogames",
+     "name": "Video Games"
+  },
+  {
+     "id": 41,
+     "slug": "scifi",
+     "name": "Science Fiction"
+  },
 ]
 
 export const categoriesReducer = (state = categoriesDefaultState, { type, payload }) => {
