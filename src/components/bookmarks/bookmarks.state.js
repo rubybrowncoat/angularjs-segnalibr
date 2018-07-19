@@ -1,6 +1,10 @@
 import UidGenerator from '../../utils/uid'
 const bookmarkUids = new UidGenerator('bookmark-')
 
+const ENDPOINTS = {
+  FETCH: 'data/bookmarks.json',
+}
+
 // Bookmarks
 export const FETCH_BOOKMARKS = 'FETCH_BOOKMARKS'
 
@@ -8,57 +12,7 @@ export const CREATE_BOOKMARK = 'CREATE_BOOKMARK'
 export const UPDATE_BOOKMARK = 'UPDATE_BOOKMARK'
 export const DELETE_BOOKMARK = 'DELETE_BOOKMARK'
 
-// export const bookmarksDefaultState = []
-export const bookmarksDefaultState = [
-  {
-    "id": 1,
-    "title": "AngularJS",
-    "url": "https://angularjs.org",
-    "category": "development"
-  },
-  {
-    "id": 2,
-    "title": "Node.js",
-    "url": "https://nodejs.org",
-    "category": "development"
-  },
-  {
-    "id": 3,
-    "title": "GitHub",
-    "url": "https://github.com",
-    "category": "development"
-  },
-  {
-    "id": 4,
-    "title": "Material Design",
-    "url": "https://material.io/design/",
-    "category": "design"
-  },
-  {
-    "id": 5,
-    "title": "Dwarf Fortress",
-    "url": "http://www.bay12games.com/dwarves/",
-    "category": "videogames"
-  },
-  {
-    "id": 6,
-    "title": "The Noun Project",
-    "url": "https://thenounproject.com",
-    "category": "design"
-  },
-  {
-    "id": 7,
-    "title": "Rocket League",
-    "url": "https://www.rocketleague.com",
-    "category": "videogames"
-  },
-  {
-    "id": 8,
-    "title": "Honorverse",
-    "url": "https://en.wikipedia.org/wiki/Honorverse",
-    "category": "scifi"
-  }
-]
+export const bookmarksDefaultState = []
 
 export const bookmarksReducer = (state = bookmarksDefaultState, { type, payload }) => {
   switch(type) {
@@ -114,13 +68,21 @@ export const bookmarkReducer = (state = bookmarkDefaultState, { type, payload })
 }
 
 // Actions
-export const BookmarksActions = $ngRedux => {
+export const BookmarksActions = ($ngRedux, $http, $q) => {
   'ngInject'
 
-  const fetchBookmarks = bookmarks => ({
-    type: FETCH_BOOKMARKS,
-    payload: bookmarks,
-  })
+  const getData = result => result.data
+
+  const fetchBookmarks = () => (dispatch, getState) => {
+    const { bookmarks } = getState()
+
+    return $q.when(
+      bookmarks.length ? bookmarks : $http.get(ENDPOINTS.FETCH).then(getData)
+    ).then(data => dispatch({
+      type: FETCH_BOOKMARKS,
+      payload: data,
+    }))
+  }
 
   const saveBookmark = bookmark => {
     const hasId = !!bookmark.id

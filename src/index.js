@@ -12,10 +12,11 @@ import appComponent from './app/app.component'
 import ModelsModule from './models/models'
 import ComponentsModule from './components/components'
 
+import thunk from 'redux-thunk'
 import rootReducer from './app/app.store'
 
 const storeConfig = $ngReduxProvider => {
-  $ngReduxProvider.createStoreWith(rootReducer, [])
+  $ngReduxProvider.createStoreWith(rootReducer, [thunk])
 }
 
 angular.module('Segnalibr', [

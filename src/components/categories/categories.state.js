@@ -1,29 +1,11 @@
+const ENDPOINTS = {
+  FETCH: 'data/categories.json',
+}
+
 // Categories
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
 
-// export const categoriesDefaultState = []
-export const categoriesDefaultState = [
-  {
-     "id": 42,
-     "slug": "development",
-     "name": "Development"
-  },
-  {
-     "id": 16,
-     "slug": "design",
-     "name": "Design"
-  },
-  {
-     "id": 70,
-     "slug": "videogames",
-     "name": "Video Games"
-  },
-  {
-     "id": 41,
-     "slug": "scifi",
-     "name": "Science Fiction"
-  },
-]
+export const categoriesDefaultState = []
 
 export const categoriesReducer = (state = categoriesDefaultState, { type, payload }) => {
   switch(type) {
@@ -53,11 +35,21 @@ export const categoryReducer = (state = categoryDefaultState, { type, payload })
 }
 
 // Actions
-export const CategoriesActions = () => {
-  const fetchCategories = categories => ({
-    type: FETCH_CATEGORIES,
-    payload: categories,
-  })
+export const CategoriesActions = ($http, $q) => {
+  'ngInject'
+
+  const getData = result => result.data
+
+  const fetchCategories = () => (dispatch, getState) => {
+    const { categories } = getState()
+
+    return $q.when(
+      categories.length ? categories : $http.get(ENDPOINTS.FETCH).then(getData)
+    ).then(data => dispatch({
+      type: FETCH_CATEGORIES,
+      payload: data,
+    }))
+  }
 
   const selectCategory = category => ({
     type: GET_CURRENT_CATEGORY,
